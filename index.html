@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/slick.css">
+    <style>
+        .item img {
+            width: 100%;
+            position: relative;
+            /* left: -50px; */
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="parallaxslider-js">
+            <div class="item">
+                <img src="./assets/images/1.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="./assets/images/2.jpg" alt="">
+            </div>
+            <div class="item">
+                <img src="./assets/images/3.jpg" alt="">
+            </div>
+        </div>
+    </main>
+
+    <script src="./assets/js/jquery.js"></script>
+    <script src="./assets/js/slick.min.js"></script>
+    <script>
+        $('.parallaxslider-js').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            speed: 2000
+        });
+        $('.parallaxslider-js').on('afterChange', function(slick, currentSlide) {
+            console.log(currentSlide.currentSlide);
+        });
+        $('.parallaxslider-js').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+            parallaxAnimate(this, currentSlide, nextSlide);
+        });
+        var parallaxAnimate = function (el, currentSlide, nextSlide) {
+
+            var increment = "+";
+
+            if (currentSlide > nextSlide) {
+                increment = "-";
+            }
+
+            $(el).find(".item img:visible").animate({
+                left: increment + "=150"
+            }, 1000, function () {
+                // Animation complete.
+            });
+        };
+    </script>
+</body>
+</html>

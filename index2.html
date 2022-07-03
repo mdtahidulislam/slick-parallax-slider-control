@@ -1,0 +1,97 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="http://kenwheeler.github.io/slick/slick/slick.js"></script>
+<link rel="stylesheet" type="text/css" href="http://kenwheeler.github.io/slick/slick/slick.css" />
+<h2>Carosuel</h2>
+<style>
+    .container{
+    height: 400px;
+    width: 500px;
+    border: 1px solid black;
+}
+
+.block {
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+}
+body {
+    background: grey;
+}
+.parallaxback img {
+    width: 100%;
+    position: relative;
+    
+}
+.slick-arrow {
+    position: absolute;
+    top:-20px;
+}
+.slick-prev {
+    left:0;
+}
+.slick-next {
+    right:0;
+}
+</style>
+<body>
+    
+
+<div class="container">
+
+    <div class="data">
+        <div class="block">
+            <div class="parallaxback">
+                <img
+                    src="https://superherogeorge.files.wordpress.com/2015/03/iron-man-peel-and-stick-comic-book-cover-900x1288.jpg">
+            </div>
+        </div>
+        <div class="block">
+            <div class="parallaxback">
+                <img src="http://www.wired.com/images_blogs/underwire/2009/12/1982-wolverine-1-4.jpg">
+            </div>
+        </div>
+        <div class="block">
+            <div class="parallaxback">
+                <img src="http://41.media.tumblr.com/tumblr_m7hijdSwXT1qdyv2wo1_1280.jpg">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+     $(document).ready(function () {
+            $('.data').slick({
+                loop: true, 
+                slidesToShow: 1, 
+                slidesToScroll: 1,
+                speed: 800,
+            });
+
+
+            var parallaxAnimate = function (el, currentSlide, nextSlide) {
+
+                var increment = "+";
+
+                if (currentSlide > nextSlide) {
+                    increment = "-";
+                }
+
+                $(el).find(".slick-active .parallaxback img").animate({
+                    left: increment + "=50%"
+                }, 1000, function () {
+                    $(el).find(".slick-active").siblings('.slick-slide').find('.parallaxback img').animate({
+                        left: 0
+                    }, 0);
+                });
+         
+            };
+
+            // On before slide change
+            $('.data').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                console.log("beforeChange");
+                parallaxAnimate(this, currentSlide, nextSlide);
+            });
+        });
+</script>
+</body>
+
+</html>
